@@ -1,3 +1,15 @@
 <apex:page >
-    You have landed to Polio
+    <apex:includeLightning />
+
+    <div id="lightningApplication" />
+
+    <script>
+        $Lightning.use("c:SiteLightningApp", function() {
+            $Lightning.createComponent("c:mainPage", 
+                {},
+                "lightningApplication",
+                function(component) {}
+            );
+        });
+    </script>
 </apex:page>
