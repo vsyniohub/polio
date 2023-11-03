@@ -12,5 +12,4 @@
     <label>Polio</label>
     <navType>Standard</navType>
     <uiType>Lightning</uiType>
-    <utilityBar>Polio_UtilityBar</utilityBar>
 </CustomApplication>
