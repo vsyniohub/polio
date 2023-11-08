@@ -1,8 +1,8 @@
 import { api, LightningElement } from 'lwc';
-import getSession from "@salesforce/apex/GameSessionController.getSession";
+import getSession from "@salesforce/apex/GameSessionController.requestSession";
 
 export default class MainPage extends LightningElement { 
-    enteredCode;
+    enteredCode = '1232412';
 
     async checkCode() {
         try {
@@ -11,7 +11,7 @@ export default class MainPage extends LightningElement {
             });
             this.redirectWhenFound(retrieveResult);
         } catch (error) {
-            
+            console.log(error);
         }
         
     }

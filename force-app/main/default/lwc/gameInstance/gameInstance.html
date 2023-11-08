@@ -8,22 +8,38 @@
             <div class="slds-grid slds-grid_vertical slds-grid_align-center slds-nowrap">
                 <div class="slds-col slds-shrink-none slds-size_12-of-12">
                     <div class="slds-text-align_center slds-text-title_caps slds-m-bottom_large">
-                        Connected to game {code}
+                        Connected to game <b>{code}</b>
                     </div>
                 </div>
                 <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
-                    <div class="slds-text-align_center">
-                        Please enter the game code...
+                    <div class="slds-text-align_left">
+                        <b>Question: </b> Who is the funniest person in the world?
+                    </div>
+                </div>
+                <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
+                    <div class="slds-grid slds-grid_vertical slds-grid_align-center slds-nowrap">
+                        <template for:each={response.units} for:item="unit">
+                            <div class="slds-col slds-shrink-none slds-size_12-of-12" key={unit.id} id={unit.id}>
+                                <div class="slds-m-right_x-small" key={unit.id} id={unit.id}>
+                                    <lightning-button 
+                                        key={unit.id}
+                                        label="A. Homer Simpson" 
+                                        onclick={handleSelection}
+                                        stretch 
+                                        class="slds-m-left_x-small">
+                                    </lightning-button>
+                                </div>
+                            </div>
+                        </template>
                     </div>
                 </div>
                 <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
                     <div class="slds-align_absolute-center">
-                        
-                    </div>
-                </div>
-                <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
-                    <div class="slds-align_absolute-center">
-                        
+                        <button 
+                            class="slds-button slds-button_outline-brand" 
+                            style="width: 10rem" 
+                            onclick={checkCode}>Submit
+                        </button>
                     </div>
                 </div>
             </div>

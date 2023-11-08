@@ -1,0 +1,18 @@
+<apex:page >
+    <apex:includeLightning />
+
+    <div id="lightningApplication" />
+
+    <script>
+
+        $Lightning.use("c:SiteLightningApp", function() {
+            $Lightning.createComponent("c:gameInstance", 
+                {
+                    'code' : '{!$CurrentPage.parameters.gameCode}'
+                },
+                "lightningApplication",
+                function(component) {}
+            );
+        });
+    </script>
+</apex:page>
