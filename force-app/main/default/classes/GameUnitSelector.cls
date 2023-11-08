@@ -26,4 +26,8 @@ public with sharing class GameUnitSelector extends Selector {
         List<Game_Unit__c> units = (List<Game_Unit__c>)this.selectByConjunction(conditions);
         return units.isEmpty() ? null : units;
     }
+    public Game_Unit__c getRecordById(String id) {
+        List<Game_Unit__c> units = (List<Game_Unit__c>)this.selectById(new Set<Id>{(Id)id});
+        return units.isEmpty() ? null : units[FIRST_ELEMENT];
+    }
 }

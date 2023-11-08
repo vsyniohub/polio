@@ -11,37 +11,39 @@
                         Connected to game <b>{code}</b>
                     </div>
                 </div>
-                <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
-                    <div class="slds-text-align_left">
-                        <b>Question: </b> Who is the funniest person in the world?
+                <template if:true={currentUnit}>
+                    <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
+                        <div class="slds-text-align_left">
+                            <b>Question: </b> {currentUnit.content}
+                        </div>
                     </div>
-                </div>
-                <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
-                    <div class="slds-grid slds-grid_vertical slds-grid_align-center slds-nowrap">
-                        <template for:each={response.units} for:item="unit">
-                            <div class="slds-col slds-shrink-none slds-size_12-of-12" key={unit.id} id={unit.id}>
-                                <div class="slds-m-right_x-small" key={unit.id} id={unit.id}>
-                                    <lightning-button 
-                                        key={unit.id}
-                                        label="A. Homer Simpson" 
-                                        onclick={handleSelection}
-                                        stretch 
-                                        class="slds-m-left_x-small">
-                                    </lightning-button>
+                    <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
+                        <div class="slds-grid slds-grid_vertical slds-grid_align-center slds-nowrap">                        
+                            <template for:each={currentUnit.items} for:item="item">
+                                <div class="slds-col slds-shrink-none slds-size_12-of-12" key={item.id} id={item.id}>
+                                    <div class="slds-m-around_xxx-small" key={item.id} id={item.id}>
+                                        <lightning-button 
+                                            key={item.id}
+                                            label={item.answer}
+                                            onclick={handleSelection}
+                                            stretch >
+                                            <!--class="slds-m-left_x-small"-->
+                                        </lightning-button>
+                                    </div>
                                 </div>
-                            </div>
-                        </template>
+                            </template>
+                        </div>
                     </div>
-                </div>
-                <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
-                    <div class="slds-align_absolute-center">
-                        <button 
-                            class="slds-button slds-button_outline-brand" 
-                            style="width: 10rem" 
-                            onclick={checkCode}>Submit
-                        </button>
+                    <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
+                        <div class="slds-align_absolute-center">
+                            <button 
+                                class="slds-button slds-button_outline-brand" 
+                                style="width: 10rem" 
+                                onclick={checkCode}>Submit
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </template>
             </div>
             <!-- INPUTS -->
         </div>

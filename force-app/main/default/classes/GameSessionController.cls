@@ -11,8 +11,8 @@ public with sharing class GameSessionController {
         GameSessionWrapper currentGame = new GameSessionWrapper(
             GameSessionSelector.getInstance().getRecordByConjunction(getRequestConditions(sessionCode))
         );
-        currentGame.setUnits(
-            GameUnitSelector.getInstance().getRecordsByConjunction(getUnitsConditions(currentGame.id))
+        currentGame.setCurrentUnit(
+            GameUnitSelector.getInstance().getRecordById(currentGame.currentUnitId)
         );
         return currentGame;
     }

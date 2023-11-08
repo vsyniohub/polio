@@ -1,6 +1,6 @@
 public virtual class Selector {
-    private final static Integer FIRST_ELEMENT = 0;
-    
+    public final static Integer FIRST_ELEMENT = 0;
+
     private String objectName;
     private String finalQuery;
 
