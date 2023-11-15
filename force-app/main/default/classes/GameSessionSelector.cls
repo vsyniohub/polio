@@ -1,6 +1,5 @@
 public with sharing class GameSessionSelector extends Selector {
     private final static String OBJECT_NAME = 'Game_Session__c';
-    private final static Integer FIRST_ELEMENT = 0;
 
     private static GameSessionSelector instance = null;
 
@@ -8,10 +7,14 @@ public with sharing class GameSessionSelector extends Selector {
     private Set<String> fields = new Set<String>{
         'Id', 'Session_Code__c', 'Current_Step__c'
     };
+    private Map<String, Set<String>> childUnitsFields = new Map<String, Set<String>> {
+        'Game_Units__r' => new Set<String>{'Title__c', 'Content__c'}
+    };
 
     public GameSessionSelector() {
         super(OBJECT_NAME);
         this.setFields(this.fields);
+        this.setChildFields(this.childUnitsFields);
     }
     public static GameSessionSelector getInstance() {
         if (instance == null) {
@@ -19,6 +22,7 @@ public with sharing class GameSessionSelector extends Selector {
         }
         return instance;
     }
+
     public Map<Id, Game_Session__c> getContextSessionsAsMapById(Set<Id> ids) {
         if (this.sessionsMap == null) {
             this.sessionsMap = new Map<Id, Game_Session__c>(

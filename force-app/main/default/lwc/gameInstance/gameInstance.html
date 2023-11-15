@@ -8,24 +8,36 @@
             <div class="slds-grid slds-grid_vertical slds-grid_align-center slds-nowrap">
                 <div class="slds-col slds-shrink-none slds-size_12-of-12">
                     <div class="slds-text-align_center slds-text-title_caps slds-m-bottom_large">
-                        Connected to game {code}
+                        Connected to game <b>{code}</b>
                     </div>
                 </div>
-                <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
-                    <div class="slds-text-align_center">
-                        Please enter the game code...
+                <template if:true={currentUnit}>
+                    <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
+                        <div class="slds-text-align_left">
+                            <b>Question: </b> {currentUnit.content}
+                        </div>
                     </div>
-                </div>
-                <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
-                    <div class="slds-align_absolute-center">
-                        
+                    <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
+                        <div class="slds-grid slds-grid_vertical slds-grid_align-center slds-nowrap">                        
+                            <template for:each={currentUnit.items} for:item="item" for:index="index">
+                                <div class="slds-col slds-shrink-none slds-size_12-of-12" key={item.id} id={item.id} onclick={handleSelection}>
+                                    <div class="slds-m-around_xxx-small" key={item.id} id={item.id}>
+                                        <c-check-box-item item={item}></c-check-box-item>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
                     </div>
-                </div>
-                <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
-                    <div class="slds-align_absolute-center">
-                        
+                    <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
+                        <div class="slds-align_absolute-center">
+                            <button 
+                                class="slds-button slds-button_outline-brand" 
+                                style="width: 10rem" 
+                                onclick={checkCode}>Submit
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </template>
             </div>
             <!-- INPUTS -->
         </div>
