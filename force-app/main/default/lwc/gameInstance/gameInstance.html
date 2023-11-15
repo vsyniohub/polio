@@ -19,16 +19,10 @@
                     </div>
                     <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
                         <div class="slds-grid slds-grid_vertical slds-grid_align-center slds-nowrap">                        
-                            <template for:each={currentUnit.items} for:item="item">
-                                <div class="slds-col slds-shrink-none slds-size_12-of-12" key={item.id} id={item.id}>
+                            <template for:each={currentUnit.items} for:item="item" for:index="index">
+                                <div class="slds-col slds-shrink-none slds-size_12-of-12" key={item.id} id={item.id} onclick={handleSelection}>
                                     <div class="slds-m-around_xxx-small" key={item.id} id={item.id}>
-                                        <lightning-button 
-                                            key={item.id}
-                                            label={item.answer}
-                                            onclick={handleSelection}
-                                            stretch >
-                                            <!--class="slds-m-left_x-small"-->
-                                        </lightning-button>
+                                        <c-check-box-item item={item}></c-check-box-item>
                                     </div>
                                 </div>
                             </template>

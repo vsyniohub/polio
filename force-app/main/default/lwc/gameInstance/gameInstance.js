@@ -18,5 +18,6 @@ export default class GameInstance extends LightningElement {
         }
     }
     handleSelection(event) {
+        console.log(event.target.dataset.item);
     }
 }
