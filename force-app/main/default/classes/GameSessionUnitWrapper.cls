@@ -5,6 +5,7 @@ public class GameSessionUnitWrapper extends BasicObjectWrapper{
     @AuraEnabled public List<GameSessionUnitItemWrapper> items;
 
     public GameSessionUnitWrapper(Game_Unit__c unit) {
+        super(unit);
         this.id         = unit.id;
         this.title      = unit?.Title__c;
         this.content    = unit?.Content__c;
