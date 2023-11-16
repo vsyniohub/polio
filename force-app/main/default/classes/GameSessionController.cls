@@ -1,9 +1,18 @@
 public with sharing class GameSessionController {
+    public final static String ERROR_STRING = 'ERROR';
+
     @AuraEnabled
     public static GameRequestWrapper requestSession(String sessionCode) {
-        return new GameRequestWrapper(
-            GameSessionSelector.getInstance().getRecordByConjunction(getRequestConditions(sessionCode))
-        );
+        try {
+            return (GameRequestWrapper)new GameRequestWrapper(
+                GameSessionSelector.getInstance().getRecordByConjunction(getRequestConditions(sessionCode))
+            );
+        } catch (Exception e) {
+            return (GameRequestWrapper)new GameRequestWrapper().setResult(
+                GameSessionController.ERROR_STRING, 
+                e.getCause()
+            );
+        }
     }
 
     @AuraEnabled
@@ -11,6 +20,7 @@ public with sharing class GameSessionController {
         GameSessionWrapper currentGame = new GameSessionWrapper(
             GameSessionSelector.getInstance().getRecordByConjunction(getRequestConditions(sessionCode))
         );
+
         currentGame.setCurrentUnit(
             GameUnitSelector.getInstance().getRecordById(currentGame.currentUnitId)
         );
