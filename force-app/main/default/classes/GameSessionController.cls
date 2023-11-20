@@ -1,18 +1,9 @@
 public with sharing class GameSessionController {
-    public final static String ERROR_STRING = 'ERROR';
-
     @AuraEnabled
     public static GameRequestWrapper requestSession(String sessionCode) {
-        try {
-            return (GameRequestWrapper)new GameRequestWrapper(
-                GameSessionSelector.getInstance().getRecordByConjunction(getRequestConditions(sessionCode))
-            );
-        } catch (Exception e) {
-            return (GameRequestWrapper)new GameRequestWrapper().setResult(
-                GameSessionController.ERROR_STRING, 
-                e.getCause()
-            );
-        }
+        return new GameRequestWrapper(
+            GameSessionSelector.getInstance().getRecordByConjunction(getRequestConditions(sessionCode))
+        );
     }
 
     @AuraEnabled
@@ -20,11 +11,35 @@ public with sharing class GameSessionController {
         GameSessionWrapper currentGame = new GameSessionWrapper(
             GameSessionSelector.getInstance().getRecordByConjunction(getRequestConditions(sessionCode))
         );
-
         currentGame.setCurrentUnit(
             GameUnitSelector.getInstance().getRecordById(currentGame.currentUnitId)
         );
         return currentGame;
+    }
+
+    @AuraEnabled
+    public static PartnerRegistrationWrapper registerParticipant(String sessionId, String nickName) {
+        PartnerRegistrationWrapper wrapper;
+
+        try {
+            wrapper = new PartnerRegistrationWrapper(
+                ParticipantRegistrationService.getInstance().invoke(
+                    sessionId, 
+                    nickName
+                )
+            );
+            wrapper.setResult(
+                DefaultWrapper.OK, 
+                'Success'
+            );
+        } catch (Exception e) {
+            wrapper = new PartnerRegistrationWrapper();
+            wrapper.setResult(
+                DefaultWrapper.ERROR, 
+                e.getMessage()
+            );
+        }
+        return wrapper;
     }
 
     private static Map<String, String> getRequestConditions(String sessionCode) {

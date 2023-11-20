@@ -1,5 +1,6 @@
 import { api, LightningElement } from 'lwc';
 import getSession from "@salesforce/apex/GameSessionController.requestSession";
+import register from "@salesforce/apex/GameSessionController.registerParticipant";
 
 export default class MainPage extends LightningElement { 
     enteredCode = '1232412';
@@ -18,7 +19,15 @@ export default class MainPage extends LightningElement {
             if (retrieveResult.result.status === this.FINALS.ERROR) {
                 this.setValidity('codeInput', retrieveResult.result.message);
             } else {
-                this.redirectWhenFound(retrieveResult);
+                const registerResult = await register({
+                    sessionId : retrieveResult.id,
+                    nickName  : this.enteredName
+                });
+                if (registerResult.result.status === this.FINALS.ERROR) {
+                    console.log(registerResult);
+                } else {
+                    this.redirectWhenFound(retrieveResult);
+                }
             }
         } catch (error) {
             console.log(error);

@@ -11,12 +11,12 @@ public with sharing class ParticipantRegistrationService {
         return instance;
     }
 
-    public Participant__c invoke(String session, String nickname) {
+    public List<Participant__c> invoke(String session, String nickname) {
         recordHandler.addNew(generateParticipant(session, nickname));
 
         recordHandler.commitWork();
 
-        return [SELECT Id FROM Participant__c LIMIT 1];
+        return recordHandler.returnInsertedList();
     }
 
     private Participant__c generateParticipant(String seesionId, String nickname) {

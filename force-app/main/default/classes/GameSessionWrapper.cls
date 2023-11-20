@@ -8,7 +8,6 @@ global without sharing class GameSessionWrapper extends DefaultGameWrapper {
         super(session);
         
         this.currentUnitId = session.Current_Step__c;
-        //this.setUnits(session.Game_Units__r);
     }
 
     public void setUnits(List<Game_Unit__c> units) {
