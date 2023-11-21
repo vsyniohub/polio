@@ -9,7 +9,7 @@ public virtual class DefaultWrapper extends BasicObjectWrapper{
 
     }
     public DefaultWrapper(sObject singularObject) {
-
+        super(singularObject);
     }
     public DefaultWrapper(List<sObject> objectList) {
 

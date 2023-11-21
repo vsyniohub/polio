@@ -1,4 +1,6 @@
 public with sharing class ParticipantRegistrationService {
+    private final static Integer FIRST_ELEMENT = 0;
+
     private static ParticipantRegistrationService instance = null;
     private DMLHandler recordHandler = null;
 
@@ -11,12 +13,12 @@ public with sharing class ParticipantRegistrationService {
         return instance;
     }
 
-    public List<Participant__c> invoke(String session, String nickname) {
+    public Participant__c invokeSingular(String session, String nickname) {
         recordHandler.addNew(generateParticipant(session, nickname));
 
         recordHandler.commitWork();
 
-        return recordHandler.returnInsertedList();
+        return getLastReply();
     }
 
     private Participant__c generateParticipant(String seesionId, String nickname) {
@@ -25,5 +27,8 @@ public with sharing class ParticipantRegistrationService {
             Nickname__c         = nickname,
             Joined_DateTime__c  = DateTime.now()
         );
+    }
+    private Participant__c getLastReply() {
+        return recordHandler.returnInsertedList().isEmpty() ? null : (Participant__c)recordHandler.returnInsertedList()[FIRST_ELEMENT];
     }
 }

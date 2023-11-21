@@ -8,7 +8,8 @@
         $Lightning.use("c:SiteLightningApp", function() {
             $Lightning.createComponent("c:gameInstance", 
                 {
-                    'code' : '{!$CurrentPage.parameters.gameCode}'
+                    'code' : '{!$CurrentPage.parameters.gameCode}',
+                    'participant' : '{!$CurrentPage.parameters.participant}'
                 },
                 "lightningApplication",
                 function(component) {}

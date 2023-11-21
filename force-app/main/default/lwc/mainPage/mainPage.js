@@ -26,7 +26,7 @@ export default class MainPage extends LightningElement {
                 if (registerResult.result.status === this.FINALS.ERROR) {
                     console.log(registerResult);
                 } else {
-                    this.redirectWhenFound(retrieveResult);
+                    this.redirectWhenFound(retrieveResult, registerResult);
                 }
             }
         } catch (error) {
@@ -38,8 +38,11 @@ export default class MainPage extends LightningElement {
         this.setValidity('codeInput','');
         this.enteredCode = event.detail.value;
     }
-    redirectWhenFound(o) {
-        if (o.sessionCode !== undefined) window.open("/apex/game?gameCode="+o.sessionCode,'_top');
+    redirectWhenFound(o, p) {
+        if (o.sessionCode !== undefined) window.open(
+            "/apex/game?gameCode="+o.sessionCode+"&participant="+p.id,
+            '_top'
+        );
     }
     nickNameChanged(event) {
         this.setValidity('nameInput','');
