@@ -1,3 +1,4 @@
+<!-- sldsValidatorIgnore -->
 <template>
     <div class="slds-grid slds-nowrap slds-m-around_xx-large" style="height: 25%">
         <div class="slds-col slds-shrink-none slds-size_3-of-12">
@@ -12,31 +13,36 @@
                     </div>
                 </div>
                 <template if:true={currentUnit}>
-                    <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
-                        <div class="slds-text-align_left">
-                            <b>Question: </b> {currentUnit.content}
+                    <template if:true={inProgress}>
+                        <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
+                            <div class="slds-text-align_left">
+                                <b>Question: </b> {currentUnit.content}
+                            </div>
                         </div>
-                    </div>
-                    <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
-                        <div class="slds-grid slds-grid_vertical slds-grid_align-center slds-nowrap">                        
-                            <template for:each={currentUnit.items} for:item="item" for:index="index">
-                                <div class="slds-col slds-shrink-none slds-size_12-of-12" key={item.id} id={item.id} onclick={handleSelection}>
-                                    <div class="slds-m-around_xxx-small" key={item.id} id={item.id}>
-                                        <c-check-box-item item={item}></c-check-box-item>
+                        <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
+                            <div class="slds-grid slds-grid_vertical slds-grid_align-center slds-nowrap">                        
+                                <template for:each={currentUnit.items} for:item="item" for:index="index">
+                                    <div class="slds-col slds-shrink-none slds-size_12-of-12" key={item.id} id={item.id} data-item={item.id}>
+                                        <div class="slds-m-around_xxx-small" data-item={item.id} key={item.id} id={item.id} >
+                                            <c-check-box-item item={item} data-item={item.id} key={item.id} onclicked={handleSelection}></c-check-box-item>
+                                        </div>
                                     </div>
-                                </div>
-                            </template>
+                                </template>
+                            </div>
                         </div>
-                    </div>
-                    <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
-                        <div class="slds-align_absolute-center">
-                            <button 
-                                class="slds-button slds-button_outline-brand" 
-                                style="width: 10rem" 
-                                onclick={checkCode}>Submit
-                            </button>
+                        <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
+                            <div class="slds-align_absolute-center">
+                                <button 
+                                    class="slds-button slds-button_outline-brand" 
+                                    style="width: 10rem" 
+                                    onclick={submitAnswer}>Submit
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    </template>
+                    <template if:false={inProgress}>
+                        <div class="slds-text-align_center">Your answer has been submitted: <b>{selectedItemsReplies}</b> </div>
+                    </template>
                 </template>
             </div>
             <!-- INPUTS -->

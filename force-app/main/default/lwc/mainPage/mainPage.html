@@ -13,18 +13,32 @@
                 </div>
                 <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
                     <div class="slds-text-align_center">
-                        Please enter the game code...
+                        Please enter the game code and your name...
                     </div>
                 </div>
                 <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
                     <div class="slds-align_absolute-center" style="width: 10rem">
                         <lightning-input 
+                            data-name="codeInput"
                             variant="label-hidden" 
                             type="text" 
                             placeholder="Code" 
                             value={enteredCode}
                             onchange={codeChanged}
                             label="Enter code">
+                        </lightning-input>
+                    </div>
+                </div>
+                <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
+                    <div class="slds-align_absolute-center" style="width: 10rem">
+                        <lightning-input 
+                            data-name="nameInput"
+                            variant="label-hidden" 
+                            type="text" 
+                            placeholder="Nickname" 
+                            value={enteredName}
+                            onchange={nickNameChanged}
+                            label="Enter name">
                         </lightning-input>
                     </div>
                 </div>

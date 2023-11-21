@@ -1,7 +1,7 @@
 <template>
     <div class="slds-checkbox_button-group full-width">
         <span class="slds-button slds-checkbox_button full-width">
-            <input type="checkbox" id={item.id} value={item.answer} name="checkbox" class="full-width"/>
+            <input type="checkbox" id={item.id} value={item.answer} name={item.id} class="full-width" onchange={selectionClicked}>
             <label class="slds-checkbox_button__label full-width" for={item.id}>
                 <span class="slds-checkbox_faux">{item.answer}</span>
             </label>
