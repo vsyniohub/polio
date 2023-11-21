@@ -57,7 +57,6 @@ public with sharing class GameSessionController {
                 DefaultWrapper.OK, 
                 'Success'
             );
-            System.debug(wrapper.id);
         } catch (AuraHandledException e) {
             wrapper = new GenericOperationWrapper();
             wrapper.setResult(
