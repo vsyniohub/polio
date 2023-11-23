@@ -4,7 +4,7 @@ public with sharing class GameUnitSelector extends Selector {
     private static GameUnitSelector instance = null;
 
     private Set<String> fields = new Set<String>{
-        'Id', 'Title__c', 'Content__c'
+        'Id', 'Title__c', 'Content__c', 'Status__c', 'Duration__c'
     };
     private Map<String, Set<String>> childUnitsFields = new Map<String, Set<String>> {
         'Unit_Items__r' => new Set<String>{'Answer__c'}
