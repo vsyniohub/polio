@@ -14,6 +14,13 @@
                 </div>
                 <template if:true={currentUnit}>
                     <template if:true={inProgress}>
+                        <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">   
+                            <div class="slds-align_absolute-center">
+                                <div class="slds-text-heading_large">
+                                    {calculatedTime}
+                                </div>
+                            </div>
+                        </div>
                         <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
                             <div class="slds-text-align_left">
                                 <b>Question: </b> {currentUnit.content}

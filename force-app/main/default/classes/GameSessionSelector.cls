@@ -8,7 +8,7 @@ public with sharing class GameSessionSelector extends Selector {
         'Id', 'Session_Code__c', 'Current_Step__c'
     };
     private Map<String, Set<String>> childUnitsFields = new Map<String, Set<String>> {
-        'Game_Units__r' => new Set<String>{'Title__c', 'Content__c'}
+        'Game_Units__r' => new Set<String>{'Title__c', 'Content__c', 'Status__c', 'Duration__c'}
     };
 
     public GameSessionSelector() {
