@@ -6,8 +6,7 @@ export default class GameInstance extends LightningElement {
     @api code;
     @api participant;
 
-    @track
-    counter = {
+    @track counter = {
         duration : 10,
         initialDuration : 10,
         timeString : '',
@@ -56,6 +55,7 @@ export default class GameInstance extends LightningElement {
             });
 
             if (submitResult.result.status === this.FINALS.ERROR) {
+
             } else {
                 this.inProgress = false;
             }
@@ -103,5 +103,8 @@ export default class GameInstance extends LightningElement {
     }
     get calculatedTime() {
         return this.counter.timeString;
+    }
+    get completetionText() {
+        return "Your answer has been submitted: <b>" + this.selectedItemsReplies + "</b>";
     }
 }
