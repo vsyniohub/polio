@@ -1,0 +1,61 @@
+<template>
+    <div class="slds-grid slds-nowrap slds-m-around_xx-large" style="height: 25%">
+        <div class="slds-col slds-shrink-none slds-size_3-of-12">
+            
+        </div>
+        <div class="slds-col slds-shrink-none slds-size_6-of-12 slds-box">
+            <!-- INPUTS -->
+            <div class="slds-grid slds-grid_vertical slds-grid_align-center slds-nowrap">
+                <div class="slds-col slds-shrink-none slds-size_12-of-12">
+                    <div class="slds-text-align_center slds-text-title_caps slds-m-bottom_large">
+                        Welcome to Polio
+                    </div>
+                </div>
+                <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
+                    <div class="slds-text-align_center">
+                        Please enter the game code and your name...
+                    </div>
+                </div>
+                <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
+                    <div class="slds-align_absolute-center" style="width: 10rem">
+                        <lightning-input 
+                            data-name="codeInput"
+                            variant="label-hidden" 
+                            type="text" 
+                            placeholder="Code" 
+                            value={enteredCode}
+                            onchange={codeChanged}
+                            label="Enter code">
+                        </lightning-input>
+                    </div>
+                </div>
+                <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
+                    <div class="slds-align_absolute-center" style="width: 10rem">
+                        <lightning-input 
+                            data-name="nameInput"
+                            variant="label-hidden" 
+                            type="text" 
+                            placeholder="Nickname" 
+                            value={enteredName}
+                            onchange={nickNameChanged}
+                            label="Enter name">
+                        </lightning-input>
+                    </div>
+                </div>
+                <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
+                    <div class="slds-align_absolute-center">
+                        <button 
+                            class="slds-button slds-button_outline-brand" 
+                            style="width: 10rem" 
+                            onclick={checkCode}>Join a Game
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- INPUTS -->
+        </div>
+        <div class="slds-col slds-shrink-none slds-size_3-of-12">
+
+        </div>
+    </div>
+</template>

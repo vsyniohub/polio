@@ -1,0 +1,61 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <div class="slds-grid slds-nowrap slds-m-around_xx-large" style="height: 25%">
+        <div class="slds-col slds-shrink-none slds-size_3-of-12">
+            
+        </div>
+        <div class="slds-col slds-shrink-none slds-size_6-of-12 slds-box">
+            <!-- INPUTS -->
+            <div class="slds-grid slds-grid_vertical slds-grid_align-center slds-nowrap">
+                <div class="slds-col slds-shrink-none slds-size_12-of-12">
+                    <div class="slds-text-align_center slds-text-title_caps slds-m-bottom_large">
+                        Connected to game <b>{code}</b>
+                    </div>
+                </div>
+                <template if:true={currentUnit}>
+                    <template if:true={inProgress}>
+                        <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">   
+                            <div class="slds-align_absolute-center">
+                                <div class="slds-text-heading_large">
+                                    {calculatedTime}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
+                            <div class="slds-text-align_left">
+                                <b>Question: </b> {currentUnit.content}
+                            </div>
+                        </div>
+                        <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
+                            <div class="slds-grid slds-grid_vertical slds-grid_align-center slds-nowrap">                        
+                                <template for:each={currentUnit.items} for:item="item" for:index="index">
+                                    <div class="slds-col slds-shrink-none slds-size_12-of-12" key={item.id} id={item.id} data-item={item.id}>
+                                        <div class="slds-m-around_xxx-small" data-item={item.id} key={item.id} id={item.id} >
+                                            <c-check-box-item item={item} data-item={item.id} key={item.id} onclicked={handleSelection}></c-check-box-item>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">
+                            <div class="slds-align_absolute-center">
+                                <button 
+                                    class="slds-button slds-button_outline-brand" 
+                                    style="width: 10rem" 
+                                    onclick={submitAnswer}>Submit
+                                </button>
+                            </div>
+                        </div>
+                    </template>
+                    <template if:false={inProgress}>
+                        <c-completion-section completion-text={completetionText}></c-completion-section>
+                    </template>
+                </template>
+            </div>
+            <!-- INPUTS -->
+        </div>
+        <div class="slds-col slds-shrink-none slds-size_3-of-12">
+
+        </div>
+    </div>
+</template>
