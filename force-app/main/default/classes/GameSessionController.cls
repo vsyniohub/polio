@@ -66,6 +66,11 @@ public with sharing class GameSessionController {
         }
         return wrapper;
     }
+    
+    @AuraEnabled
+    public static String getSessionId(){
+        return UserInfo.getSessionId();
+    }
 
     private static Map<String, String> getRequestConditions(String sessionCode) {
         return new Map<String, String>{'Session_Code__c' => sessionCode};

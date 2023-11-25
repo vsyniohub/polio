@@ -6,22 +6,25 @@ export default class GameInstance extends LightningElement {
     @api code;
     @api participant;
 
+    FINALS = {
+        SUCCESS : 'SUCCESS',
+        ERROR   : 'ERROR'
+    }
+
     @track counter = {
         duration : 10,
         initialDuration : 10,
         timeString : '',
         secondDuration : 1000
     }
+    @track sections = {
+        showInProgress  : true,
+        showCompleted   : false,
+        showLeaders     : false
+    }
 
     timerInterval;
     time;
-
-    FINALS = {
-        SUCCESS : 'SUCCESS',
-        ERROR   : 'ERROR'
-    }
-
-    inProgress = true;
 
     response = {};
     currentUnit = {};
@@ -57,7 +60,7 @@ export default class GameInstance extends LightningElement {
             if (submitResult.result.status === this.FINALS.ERROR) {
 
             } else {
-                this.inProgress = false;
+                this.showSection("showCompleted");
             }
         } catch (error) {
             console.log(error);
@@ -95,6 +98,24 @@ export default class GameInstance extends LightningElement {
         this.counter.duration = this.counter.initialDuration = unit.duration;
         this.counter.timeString = this.lessThanTen(Math.floor(this.counter.duration / 60)) + ' : ' + this.lessThanTen(this.counter.duration % 60);
     }
+    showLeadersBoard() {
+        console.log('Leaders Board');
+        this.showSection("showLeaders");
+    }
+    async showNext() {
+        const retrieveResult = await getSession({
+            sessionCode : this.code
+        });
+        this.response = retrieveResult;
+        this.currentUnit = this.response.currentUnit;
+
+        this.showSection("showInProgress");
+    }
+    showSection(name) {
+        for (let key in this.sections) {
+            this.sections[key] = key === name ? true : false;
+        }
+    }
     get selectedItemsReplies() {
         return this.returnSelectedAttribute('answer');
     }
@@ -105,6 +126,6 @@ export default class GameInstance extends LightningElement {
         return this.counter.timeString;
     }
     get completetionText() {
-        return "Your answer has been submitted: <b>" + this.selectedItemsReplies + "</b>";
+        return "Your answer has been submitted: " +this.selectedItemsReplies+ "";
     }
 }

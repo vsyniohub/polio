@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <template if:true={currentUnit}>
-                    <template if:true={inProgress}>
+                    <template if:true={sections.showInProgress}>
                         <div class="slds-col slds-shrink-none slds-size_12-of-12 slds-m-around_xx-small">   
                             <div class="slds-align_absolute-center">
                                 <div class="slds-text-heading_large">
@@ -31,7 +31,11 @@
                                 <template for:each={currentUnit.items} for:item="item" for:index="index">
                                     <div class="slds-col slds-shrink-none slds-size_12-of-12" key={item.id} id={item.id} data-item={item.id}>
                                         <div class="slds-m-around_xxx-small" data-item={item.id} key={item.id} id={item.id} >
-                                            <c-check-box-item item={item} data-item={item.id} key={item.id} onclicked={handleSelection}></c-check-box-item>
+                                            <c-check-box-item 
+                                                item={item} 
+                                                data-item={item.id} 
+                                                key={item.id} 
+                                                onclicked={handleSelection}></c-check-box-item>
                                         </div>
                                     </div>
                                 </template>
@@ -47,8 +51,15 @@
                             </div>
                         </div>
                     </template>
-                    <template if:false={inProgress}>
-                        <c-completion-section completion-text={completetionText}></c-completion-section>
+                    <template if:true={sections.showCompleted}>
+                        <c-completed-section 
+                            completion-text={completetionText} 
+                            session-id={response.id}
+                            onshowleaderstable={showLeadersBoard}
+                            onshownext={showNext}></c-completed-section>
+                    </template>
+                    <template if:true={sections.showLeaders}>
+                        Leaders
                     </template>
                 </template>
             </div>
