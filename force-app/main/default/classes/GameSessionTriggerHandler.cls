@@ -1,6 +1,6 @@
 public with sharing class GameSessionTriggerHandler extends TriggerHandler{
     public GameSessionTriggerHandler() {
-        super();
+        super(GameSessionTriggerHandler.class.getName());
     }
     public override void beforeInsert() {
     }
@@ -11,7 +11,4 @@ public with sharing class GameSessionTriggerHandler extends TriggerHandler{
     public override void afterUpdate() {
     }
 
-    private setNextStep() {
-        
-    }
 }

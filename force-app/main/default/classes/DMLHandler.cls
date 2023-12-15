@@ -5,6 +5,7 @@ public class DMLHandler implements DMLUnitOfWork {
     private Map<Id, sObject> recordsForUpdate;
     private Map<Id, sObject> recordsForInsert;
     private Map<Id, sObject> recordsForDelete;
+    private List<sObject> eventsToPublish;
     private static DMLHandler instance;
     
 	/* **********************
@@ -19,6 +20,8 @@ public class DMLHandler implements DMLUnitOfWork {
     ** ********************************************* */   
     private void makeDML() {
         if (recordsForInsert != null && !recordsForInsert.isEmpty()) insertRecords(recordsForInsert.values());
+        if (recordsForUpdate != null && !recordsForUpdate.isEmpty()) updateRecords(recordsForUpdate.values());
+        if (eventsToPublish != null && !eventsToPublish.isEmpty()) publishEvents(eventsToPublish);
     }
 
     /* *********************************************
@@ -39,6 +42,16 @@ public class DMLHandler implements DMLUnitOfWork {
     ** ********************************************* */   
     private void insertRecords(List<sObject> records) {
         insert records;
+    }
+
+    /* *********************************************
+    ** Method Name: publishEvents
+    ** Description: runs publishing of events
+    ** Parameters: List<sObject>
+    ** Returns: void
+    ** ********************************************* */   
+    private void publishEvents(List<sObject> records) {
+        EventBus.publish(records);
     }
     
     /* *********************************************
@@ -75,7 +88,14 @@ public class DMLHandler implements DMLUnitOfWork {
     ** Returns: void
     ** ********************************************* */   
     public void addDirty(List<sObject> records) {
-        
+        if (records != null && !records.isEmpty()) {
+            if (recordsForUpdate == null) {
+                recordsForUpdate = new Map<Id, sObject>(); 
+            }
+            for (sObject record : records) {
+                recordsForUpdate.put(record.Id, record);
+            }
+        }
     }
 
     /* *********************************************
@@ -85,7 +105,12 @@ public class DMLHandler implements DMLUnitOfWork {
     ** Returns: void
     ** ********************************************* */   
     public void addDirty(sObject record) {
-        
+        if (record != null) {
+            if (recordsForUpdate == null) {
+                recordsForUpdate = new Map<Id, sObject>(); 
+            }
+            recordsForUpdate.put(record.Id, record);   
+        }
     }
 
     /* *********************************************
@@ -119,6 +144,36 @@ public class DMLHandler implements DMLUnitOfWork {
             }
         }
     }
+
+    /* *********************************************
+    ** Method Name: addEvent
+    ** Description: adds new events to publish
+    ** Parameters: List<sObject>
+    ** Returns: void
+    ** ********************************************* */   
+    public void addEvent(List<sObject> events) {
+        if (events != null && !events.isEmpty()) {
+            if (eventsToPublish == null) {
+                eventsToPublish = new List<sObject>(); 
+            }
+            eventsToPublish.addAll(events);
+        }
+    }
+
+    /* *********************************************
+    ** Method Name: addEvent
+    ** Description: adds new event to publish
+    ** Parameters: sObject
+    ** Returns: void
+    ** ********************************************* */   
+    public void addEvent(sObject event) {
+        if (event != null) {
+            if (eventsToPublish == null) {
+                eventsToPublish = new List<sObject>(); 
+            }
+            eventsToPublish.add(event);
+        }
+    }
     
     /* *********************************************
     ** Method Name: commitWork
@@ -137,5 +192,9 @@ public class DMLHandler implements DMLUnitOfWork {
         } finally {
             
         }
+    }
+
+    public List<sObject> returnInsertedList() {
+        return this.recordsForInsert.values();
     }
 }
